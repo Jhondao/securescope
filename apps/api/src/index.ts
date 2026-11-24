@@ -3,6 +3,7 @@ import { createServer } from "node:http";
 // Punto de partida de la API: un endpoint de salud para comprobar que el
 // servidor responde. En la fase 1 lo reemplazaremos por Apollo Server (GraphQL).
 const PORT = Number(process.env.PORT ?? 4000);
+const HOST = process.env.HOST ?? "127.0.0.1"; // ← nuevo
 
 const server = createServer((req, res) => {
   if (req.url === "/health") {
@@ -14,6 +15,6 @@ const server = createServer((req, res) => {
   res.end(JSON.stringify({ error: "Not found" }));
 });
 
-server.listen(PORT, () => {
-  console.log(`API escuchando en http://localhost:${PORT}`);
+server.listen(PORT, HOST, () => {                              // ← cambia
+  console.log(`API escuchando en http://${HOST}:${PORT}`);     // ← cambia
 });
